@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ScreenManager : MonoBehaviour
 {
+    public static ScreenManager Instance { get; private set; }
+
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject Preferences;
     [SerializeField] private GameObject GameModesMenu;
@@ -37,7 +39,10 @@ public class ScreenManager : MonoBehaviour
 
     [SerializeField] float ScreenFadingSpeed;
 
-
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

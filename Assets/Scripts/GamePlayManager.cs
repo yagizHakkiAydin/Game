@@ -4,49 +4,46 @@ using UnityEngine;
 
 public class GamePlayManager : MonoBehaviour
 {
-
-
-
-
     ScreenManager _screenManager;
     ClassicalQuestionScreen _classicalQuestionScreen;
     NumericalQuestionScreen _numericalQuestionScreen;
 
     private bool hasServerStartedGame;
 
-
-
     void Awake()
     {
-        _screenManager = GameObject.Find("ScreenManager").GetComponent<ScreenManager>();
-        _classicalQuestionScreen = GameObject.Find("ClassicalQuestionScreen").GetComponent<ClassicalQuestionScreen>();
-        _numericalQuestionScreen = GameObject.Find("NumericalQuestionScreen").GetComponent<NumericalQuestionScreen>();
+        _classicalQuestionScreen = FindObjectOfType<ClassicalQuestionScreen>();
+        _numericalQuestionScreen = FindObjectOfType<NumericalQuestionScreen>();
     }
 
 
     void Start()
-    { 
+    {
+        _screenManager = ScreenManager.Instance;
     }
 
 
 
     void Update()
     {
-        if( this.DoesServerWantToUpdateQuestion() )
+        if (this.DoesServerWantToUpdateQuestion())
         {
-            this.UpdateQuestion( this.GetQuestionType() );
+            this.UpdateQuestion(this.GetQuestionType());
         }
-        if( this.DoesServerWantToShowCorrectAnswer() )
+
+        if (this.DoesServerWantToShowCorrectAnswer())
         {
             this.ShowCorrectAnswer();
         }
-        if( this.DoesServerWantToGetUserAnswer() )
+
+        if (this.DoesServerWantToGetUserAnswer())
         {
             this.SendUserAnswerToServer();
         }
-        if( this.HasServerStartedGame() )
+
+        if (this.HasServerStartedGame())
         {
-            this.StartTheGame( this.GetGameMode() );
+            this.StartTheGame(this.GetGameMode());
         }
     }
 

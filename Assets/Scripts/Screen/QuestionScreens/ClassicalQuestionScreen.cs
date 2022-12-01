@@ -22,23 +22,14 @@ public class ClassicalQuestionScreen : PlayScreen
 
     ScreenManager _screenManager;
 
-
     void Start()
     {
-        _gamePlayManager = GameObject.Find("GamePlayManager").GetComponent<GamePlayManager>();
-        _screenManager = GameObject.Find("ScreenManager").GetComponent<ScreenManager>();
+        _gamePlayManager = FindObjectOfType<GamePlayManager>(true);
+        _screenManager = ScreenManager.Instance;
         userChoice = "";
         this.defaultButtonColor = choiceAButton.GetComponent<Image>().color;
         AddListenersToClassicalQuestionScreenButtons();
     }
-
-
-
-
-
-
-
-
 
     private void AddListenersToClassicalQuestionScreenButtons()
     {
@@ -48,14 +39,10 @@ public class ClassicalQuestionScreen : PlayScreen
         choiceDButton.onClick.AddListener( ChooseD );
     }
 
-
     public string GetUserChoice()
     {
         return this.userChoice;
     }
-
-
-
 
     public void UpdateQuestion()
     {
@@ -67,13 +54,6 @@ public class ClassicalQuestionScreen : PlayScreen
         choiceDButton.gameObject.transform.GetChild(0).GetComponent<Text>().text = _gamePlayManager.GetClassicalQuestionChoiceD();
         this.correctAnswer = _gamePlayManager.GetCorrectAnswerForClassicalQuestion();
     }
-
-
-
-
-
-
-
 
     public void ChooseA()
     {
@@ -91,8 +71,6 @@ public class ClassicalQuestionScreen : PlayScreen
     {
         this.MarkChoiceAsChoosen("D");
     }
-
-
 
     public void MarkChoiceAsChoosen( string choice )
     {
@@ -142,8 +120,6 @@ public class ClassicalQuestionScreen : PlayScreen
         }
     }
 
-
-
     public void SetAllChoiceColorsToDefault()
     {
         choiceAButton.GetComponent<Image>().color = defaultButtonColor;
@@ -152,16 +128,10 @@ public class ClassicalQuestionScreen : PlayScreen
         choiceDButton.GetComponent<Image>().color = defaultButtonColor;
     }
 
-
     public void SetCorrectAnswer( string text )
     {
         this.correctAnswer = text;
     }
-
-
-
-
-
 
     public void LockAllButtonsAfterPlayerSendsAnswer()
     {
@@ -173,8 +143,6 @@ public class ClassicalQuestionScreen : PlayScreen
         this.SetInteractableStatusOfAllButtons(true);
     }
 
-
-
     private void SetInteractableStatusOfAllButtons(bool status)
     {
         choiceAButton.interactable = status;
@@ -182,6 +150,4 @@ public class ClassicalQuestionScreen : PlayScreen
         choiceCButton.interactable = status;
         choiceDButton.interactable = status;  
     }
-
-
 }
